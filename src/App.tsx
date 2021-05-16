@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { MdDonutLarge, MdChat, MdMoreVert, MdSearch } from 'react-icons/md';
 
 import ChatListItem from 'components/ChatListItem';
+import ChatIntro from 'components/ChatIntro';
+import ChatWindow from 'components/ChatWindow';
+
 import { GlobalStyle } from './globalStyles';
 import {
   Container,
@@ -14,6 +17,7 @@ import {
   Search,
   Input,
   ChatList,
+  ContentArea,
 } from './styles';
 
 const App: React.FC = () => {
@@ -34,6 +38,7 @@ const App: React.FC = () => {
     {},
     {},
   ]);
+  const [activeChat, setActiveChat] = useState({ chatId: 'sla' });
 
   return (
     <>
@@ -76,7 +81,10 @@ const App: React.FC = () => {
             ))}
           </ChatList>
         </Sidebar>
-        <div>Contéudo</div>
+
+        <ContentArea>
+          {activeChat.chatId ? <ChatWindow /> : <ChatIntro />}
+        </ContentArea>
       </Container>
     </>
   );

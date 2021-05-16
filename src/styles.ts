@@ -35,7 +35,7 @@ export const ButtonsGroup = styled.div`
 `;
 
 export const IconButton = styled.div`
-  color: var(--gray-dark);
+  color: var(--gray-100);
   font-size: 1.5rem;
   height: 40px;
   width: 40px;
@@ -54,7 +54,7 @@ export const SearchContainer = styled.div`
 
 export const Search = styled.div`
   background-color: var(--white);
-  color: var(--gray-dark);
+  color: var(--gray-100);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -87,4 +87,6 @@ export const ChatList = styled.ul`
   }
 `;
 
-export const ContentArea = styled.div``;
+export const ContentArea = styled.div`
+  flex: 1;
+`;
