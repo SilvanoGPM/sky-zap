@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #ededed;
+  background-color: var(--white-400);
   display: flex;
   height: 100vh;
 `;
@@ -46,7 +46,45 @@ export const IconButton = styled.div`
   cursor: pointer;
 `;
 
-export const Search = styled.div``;
-export const SearchInput = styled.div``;
+export const SearchContainer = styled.div`
+  background-color: var(--white-100);
+  border-bottom: 1px solid var(--white-200);
+  padding: 5px 15px;
+`;
+
+export const Search = styled.div`
+  background-color: var(--white);
+  color: var(--gray-dark);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  height: 40px;
+`;
+
+export const Input = styled.input`
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  margin-left: 20px;
+`;
+
+export const ChatList = styled.ul`
+  --scrollbar-color: rgba(0, 0, 0, 0.2);
+  flex: 1;
+  background-color: var(--white);
+  overflow-y: auto;
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-color);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+  }
+`;
 
 export const ContentArea = styled.div``;

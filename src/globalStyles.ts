@@ -2,15 +2,19 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   :root {
-    --white:       #ece5dd;
+    --white:       #ffffff;
+    --white-100:   #f6f6f6;
+    --white-200:   #eeeeee;
+    --white-300:   #ece5dd;
+    --white-400:   #ededed;
     --gray:        #dddddd;
-    --gray-medium: #f6f6f6;
     --gray-dark:   #919191;
     --blue:        #34b7f1;
     --green-100:   #dcf8c6;
     --green-200:   #25d366;
     --green-300:   #128c7e;
     --green-400:   #075e54;
+    --black:       #000000;
   }
 
   *,
@@ -22,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: var(--white);
+    background-color: var(--white-300);
     font-family: 'Segoe UI', Helvetica Neue, Helvetica, Lucida Grande, Arial;
   }
 

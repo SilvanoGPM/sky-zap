@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdDonutLarge, MdChat, MdMoreVert, MdSearch } from 'react-icons/md';
 
+import ChatListItem from 'components/ChatListItem';
 import { GlobalStyle } from './globalStyles';
 import {
   Container,
@@ -9,11 +10,31 @@ import {
   Avatar,
   ButtonsGroup,
   IconButton,
+  SearchContainer,
   Search,
-  SearchInput,
+  Input,
+  ChatList,
 } from './styles';
 
 const App: React.FC = () => {
+  const [chatList, setChatList] = useState([
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+  ]);
+
   return (
     <>
       <GlobalStyle />
@@ -37,17 +58,23 @@ const App: React.FC = () => {
             </ButtonsGroup>
           </Header>
 
-          <Search>
-            <SearchInput>
+          <SearchContainer>
+            <Search>
               <MdSearch />
-              <input
+              <Input
                 type="search"
-                placeholder="Procurar ou começar uma nova conversa"
+                placeholder="Pesquisar ou começar uma nova conversa"
               />
-            </SearchInput>
-          </Search>
+            </Search>
+          </SearchContainer>
 
-          <div>ChatList</div>
+          <ChatList>
+            {chatList.map(() => (
+              <li key={Date.now()}>
+                <ChatListItem />
+              </li>
+            ))}
+          </ChatList>
         </Sidebar>
         <div>Contéudo</div>
       </Container>
