@@ -123,7 +123,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ user }: ChatWindowProps) => {
 
       <Body ref={body}>
         {chat.map((item) => (
-          <MessageItem data={item} user={user} />
+          <MessageItem key={item.author} data={item} user={user} />
         ))}
       </Body>
 

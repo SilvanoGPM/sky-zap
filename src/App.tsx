@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MdDonutLarge, MdChat, MdMoreVert, MdSearch } from 'react-icons/md';
 
+import NewChat from 'components/NewChat';
 import ChatListItem from 'components/ChatListItem';
 import ChatIntro from 'components/ChatIntro';
 import ChatWindow from 'components/ChatWindow';
@@ -51,8 +52,14 @@ const App: React.FC = () => {
     name: 'Silvano Marques',
   });
 
+  const [showNewChat, setShowNewChat] = useState<boolean>(false);
+
   const handleChatListClick = (chat: Chat) => () => {
     setActiveChat(chat);
+  };
+
+  const handleShowNewChat = (): void => {
+    setShowNewChat(true);
   };
 
   return (
@@ -61,6 +68,12 @@ const App: React.FC = () => {
 
       <Container>
         <Sidebar>
+          <NewChat
+            show={showNewChat}
+            setShow={setShowNewChat}
+            // user={user}
+            // chatList={chatList}
+          />
           <Header>
             <Avatar width={40} height={40} src={user.avatar} />
             <ButtonsGroup>
@@ -68,7 +81,7 @@ const App: React.FC = () => {
                 <MdDonutLarge />
               </IconButton>
 
-              <IconButton>
+              <IconButton onClick={handleShowNewChat}>
                 <MdChat />
               </IconButton>
 
