@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import DefaultAvatar from 'ui/Avatar';
+
 export const Container = styled.div`
   display: flex;
   cursor: pointer;
@@ -9,12 +11,16 @@ export const Container = styled.div`
   &:hover {
     background-color: var(--white-100);
   }
+
+  &.active {
+    background-color: var(--gray);
+  }
 `;
 
-export const Avatar = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+export const Avatar = styled(DefaultAvatar).attrs({
+  width: 50,
+  height: 50,
+})`
   margin-left: 15px;
 `;
 
@@ -29,6 +35,10 @@ export const Lines = styled.div`
   flex-wrap: wrap;
   min-width: 0;
   height: 100%;
+
+  ${Container}.active & {
+    border-bottom-color: var(--gray);
+  }
 `;
 
 export const Line = styled.div`

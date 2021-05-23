@@ -9,13 +9,29 @@ import {
   Name,
 } from './styles';
 
-const ChatListItem: React.FC = () => {
+type Chat = {
+  id: number | undefined;
+  title: string | undefined;
+  image: string | undefined;
+};
+
+type ChatListItemProps = {
+  onClick: () => void;
+  active: boolean;
+  data: Chat;
+};
+
+const ChatListItem: React.FC<ChatListItemProps> = ({
+  onClick,
+  active,
+  data,
+}: ChatListItemProps) => {
   return (
-    <Container>
-      <Avatar src="images/avatar.jpg" alt="Avatar" />
+    <Container onClick={onClick} className={active ? 'active' : ''}>
+      <Avatar src={data.image} alt="Avatar" />
       <Lines>
         <Line>
-          <Name>Silvano Marques</Name>
+          <Name>{data.title}</Name>
           <LastMessageDate>11:00</LastMessageDate>
         </Line>
         <Line>

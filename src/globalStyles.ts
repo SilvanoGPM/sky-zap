@@ -22,9 +22,20 @@ export const GlobalStyle = createGlobalStyle`
   *,
   *::before,
   *::after {
+    --scrollbar-color: rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    scrollbar-color: var(--scrollbar-color) var(--scrollbar-color);
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-color);
+    }
   }
 
   body {

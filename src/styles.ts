@@ -23,13 +23,6 @@ export const Header = styled.div`
   padding: 0 15px;
 `;
 
-export const Avatar = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-`;
-
 export const ButtonsGroup = styled.div`
   display: flex;
 `;
@@ -71,20 +64,9 @@ export const Input = styled.input`
 `;
 
 export const ChatList = styled.ul`
-  --scrollbar-color: rgba(0, 0, 0, 0.2);
   flex: 1;
   background-color: var(--white);
   overflow-y: auto;
-  scrollbar-color: var(--scrollbar-color) var(--scrollbar-color);
-
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-color);
-  }
 `;
 
 export const ContentArea = styled.div`
