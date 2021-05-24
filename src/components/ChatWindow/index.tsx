@@ -7,18 +7,18 @@ import Footer from './Footer';
 
 import { Body, Container, EmojiArea } from './styles';
 
-type ChatWindowProps = {
-  user: User;
-};
-
 type User = {
-  id: number;
+  id: string;
   name: string;
   avatar: string;
 };
 
+type ChatWindowProps = {
+  user: User;
+};
+
 type Message = {
-  author: number;
+  author: string;
   body: string;
 };
 
@@ -26,54 +26,54 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ user }: ChatWindowProps) => {
   const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [chat] = useState<Message[]>([
-    { author: 123, body: 'Bla bla' },
-    { author: 123, body: 'Bla bla Bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: 1234, body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '123', body: 'Bla bla' },
+    { author: '123', body: 'Bla bla Bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
+    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
   ]);
   const input = useRef<HTMLInputElement>(null);
   const body = useRef<HTMLDivElement>(null);

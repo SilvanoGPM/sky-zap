@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import firebase from 'firebase/app';
 import { MdDonutLarge, MdChat, MdMoreVert, MdSearch } from 'react-icons/md';
 
+import api from 'api';
+import Login from 'components/Login';
 import NewChat from 'components/NewChat';
 import ChatListItem from 'components/ChatListItem';
 import ChatIntro from 'components/ChatIntro';
@@ -22,7 +25,7 @@ import {
 } from './styles';
 
 type User = {
-  id: number;
+  id: string;
   name: string;
   avatar: string;
 };
@@ -34,11 +37,7 @@ type Chat = {
 };
 
 const App: React.FC = () => {
-  const [chatList] = useState<Chat[]>([
-    { id: 1, title: 'SeuVano', image: 'images/avatar.jpg' },
-    { id: 2, title: 'NossoVano', image: 'images/avatar.jpg' },
-    { id: 3, title: 'VossoVano', image: 'images/avatar.jpg' },
-  ]);
+  const [chatList] = useState<Chat[]>([]);
 
   const [activeChat, setActiveChat] = useState<Chat>({
     id: undefined,
@@ -46,10 +45,11 @@ const App: React.FC = () => {
     image: undefined,
   });
 
-  const [user] = useState<User>({
-    id: 1234,
-    avatar: 'images/avatar.jpg',
-    name: 'Silvano Marques',
+  const [user, setUser] = useState<User>({
+    id: 'DuxV8fyHizbZgCOlwjROc4ClJQl1',
+    name: 'Silvano Pimentel',
+    avatar:
+      'https://lh3.googleusercontent.com/a-/AOh14GimIRatkcGJQyx0OTlNARYkK8pi923UqmgbvQpR1w=s96-c',
   });
 
   const [showNewChat, setShowNewChat] = useState<boolean>(false);
@@ -61,6 +61,25 @@ const App: React.FC = () => {
   const handleShowNewChat = (): void => {
     setShowNewChat(true);
   };
+
+  const handleLoginData = async (
+    userLogged: firebase.User | null
+  ): Promise<void> => {
+    if (userLogged) {
+      const newUser = {
+        id: userLogged.uid,
+        avatar: userLogged.photoURL || 'images/avatar.jpg',
+        name: userLogged.displayName || 'Não identificado',
+      };
+
+      await api.addUser(newUser);
+      setUser(newUser);
+    }
+  };
+
+  if (!user.id) {
+    return <Login onReceive={handleLoginData} />;
+  }
 
   return (
     <>

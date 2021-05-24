@@ -2,12 +2,12 @@ import React from 'react';
 import { Line, Item, Text, Date } from './styles';
 
 type Data = {
-  author: number;
+  author: string;
   body: string;
 };
 
 type User = {
-  id: number;
+  id: string;
 };
 
 type MessageItemProps = {
