@@ -6,3 +6,6 @@ export default {
   messagingSenderId: '2043935342',
   appId: '1:2043935342:web:c3398fa7b7f7569164847f',
 };
+
+export const USERS = 'users';
+export const CHATS = 'chats';

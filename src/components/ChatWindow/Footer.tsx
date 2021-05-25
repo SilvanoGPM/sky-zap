@@ -1,4 +1,4 @@
-import React, { FormEvent, Ref } from 'react';
+import React, { FormEvent, KeyboardEvent, Ref } from 'react';
 import { MdInsertEmoticon, MdClose, MdSend, MdMic } from 'react-icons/md';
 
 import { Footer, IconButton, Actions, InputArea, Input } from './styles';
@@ -10,6 +10,7 @@ type FooterComponentProps = {
   setMessage: (message: string) => void;
   handleOpenEmoji: () => void;
   handleCloseEmoji: () => void;
+  onKeyUp: (event: KeyboardEvent) => void;
 };
 
 const FooterComponent: React.FC<FooterComponentProps> = ({
@@ -19,6 +20,7 @@ const FooterComponent: React.FC<FooterComponentProps> = ({
   setMessage,
   handleOpenEmoji,
   handleCloseEmoji,
+  onKeyUp,
 }: FooterComponentProps) => {
   const handleMessageChange = (event: FormEvent<HTMLInputElement>): void => {
     setMessage(event.currentTarget.value);
@@ -52,6 +54,7 @@ const FooterComponent: React.FC<FooterComponentProps> = ({
           placeholder="Digite uma mensagem"
           value={message}
           onChange={handleMessageChange}
+          onKeyUp={onKeyUp}
         />
       </InputArea>
 

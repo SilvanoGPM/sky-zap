@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 import firebase from 'firebase/app';
 import { MdDonutLarge, MdChat, MdMoreVert, MdSearch } from 'react-icons/md';
 
@@ -30,29 +31,46 @@ type User = {
   avatar: string;
 };
 
+type Timestamp = {
+  seconds: number;
+};
+
 type Chat = {
-  id: number | undefined;
+  chatId: string | undefined;
   title: string | undefined;
   image: string | undefined;
+  lastMessage: string | undefined;
+  lastMessageDate: Timestamp;
 };
 
 const App: React.FC = () => {
-  const [chatList] = useState<Chat[]>([]);
+  const [chatList, setChatList] = useState<Chat[]>([]);
 
   const [activeChat, setActiveChat] = useState<Chat>({
-    id: undefined,
+    chatId: undefined,
     title: undefined,
     image: undefined,
+    lastMessage: undefined,
+    lastMessageDate: { seconds: 0 },
   });
 
   const [user, setUser] = useState<User>({
-    id: 'DuxV8fyHizbZgCOlwjROc4ClJQl1',
-    name: 'Silvano Pimentel',
-    avatar:
-      'https://lh3.googleusercontent.com/a-/AOh14GimIRatkcGJQyx0OTlNARYkK8pi923UqmgbvQpR1w=s96-c',
+    id: '',
+    name: '',
+    avatar: '',
   });
 
   const [showNewChat, setShowNewChat] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (user.id) {
+      const unsub = api.onChatList(user.id, setChatList);
+      return unsub;
+    }
+
+    // eslint-disable-next-line
+    return () => {};
+  }, [user]);
 
   const handleChatListClick = (chat: Chat) => () => {
     setActiveChat(chat);
@@ -90,8 +108,8 @@ const App: React.FC = () => {
           <NewChat
             show={showNewChat}
             setShow={setShowNewChat}
-            // user={user}
-            // chatList={chatList}
+            user={user}
+            chatList={chatList}
           />
           <Header>
             <Avatar width={40} height={40} src={user.avatar} />
@@ -122,11 +140,11 @@ const App: React.FC = () => {
 
           <ChatList>
             {chatList.map((chat) => (
-              <li key={chat.id}>
+              <li key={uuid()}>
                 <ChatListItem
                   onClick={handleChatListClick(chat)}
                   data={chat}
-                  active={chat.id === activeChat.id}
+                  active={chat.chatId === activeChat.chatId}
                 />
               </li>
             ))}
@@ -134,8 +152,8 @@ const App: React.FC = () => {
         </Sidebar>
 
         <ContentArea>
-          {activeChat.id !== undefined ? (
-            <ChatWindow user={user} />
+          {activeChat.chatId !== undefined ? (
+            <ChatWindow user={user} data={activeChat} />
           ) : (
             <ChatIntro />
           )}

@@ -10,11 +10,19 @@ import {
   IconButton,
 } from './styles';
 
-const HeaderComponent: React.FC = () => (
+type HeaderProps = {
+  title: string | undefined;
+  image: string | undefined;
+};
+
+const HeaderComponent: React.FC<HeaderProps> = ({
+  title,
+  image,
+}: HeaderProps) => (
   <Header>
     <HeaderInfo>
-      <Avatar src="images/avatar.jpg" />
-      <Name>Silvano Marques</Name>
+      <Avatar src={image} />
+      <Name>{title}</Name>
     </HeaderInfo>
 
     <Buttons>

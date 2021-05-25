@@ -1,6 +1,14 @@
-import React, { useState, useEffect, useRef, MouseEvent } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  MouseEvent,
+  KeyboardEvent,
+} from 'react';
+import { v4 as uuid } from 'uuid';
 import EmojiPicker, { IEmojiData } from 'emoji-picker-react';
 
+import api from 'api';
 import MessageItem from 'components/MessageItem';
 import Header from './Header';
 import Footer from './Footer';
@@ -13,70 +21,46 @@ type User = {
   avatar: string;
 };
 
+type Timestamp = {
+  seconds: number;
+};
+
+type Chat = {
+  chatId: string | undefined;
+  title: string | undefined;
+  image: string | undefined;
+  lastMessage: string | undefined;
+  lastMessageDate: Timestamp;
+};
+
 type ChatWindowProps = {
   user: User;
+  data: Chat;
 };
 
 type Message = {
   author: string;
   body: string;
+  date: Timestamp;
 };
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ user }: ChatWindowProps) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({
+  user,
+  data,
+}: ChatWindowProps) => {
   const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const [chat] = useState<Message[]>([
-    { author: '123', body: 'Bla bla' },
-    { author: '123', body: 'Bla bla Bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-    { author: '1234', body: 'Bla bla Bla bla Bla bla Bla bla' },
-  ]);
+  const [chat, setChat] = useState<Message[]>([]);
+  const [users, setUsers] = useState<string[]>([]);
+
   const input = useRef<HTMLInputElement>(null);
   const body = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setChat([]);
+    const unsub = api.onChatContent(data.chatId || '', setChat, setUsers);
+    return unsub;
+  }, [data.chatId]);
 
   useEffect(() => {
     const { current } = body;
@@ -87,6 +71,20 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ user }: ChatWindowProps) => {
       current.scrollTop = current.scrollHeight - current.offsetHeight;
     }
   }, [chat]);
+
+  const handleSendClick = (): void => {
+    if (message) {
+      api.sendMessage(data, user.id, message, users);
+      setMessage('');
+      setEmojiOpen(false);
+    }
+  };
+
+  const handleInputKeyUp = (event: KeyboardEvent): void => {
+    if (event.key === 'Enter') {
+      handleSendClick();
+    }
+  };
 
   const handleEmojiClick = (event: MouseEvent, { emoji }: IEmojiData): void => {
     const { current } = input;
@@ -119,11 +117,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ user }: ChatWindowProps) => {
 
   return (
     <Container>
-      <Header />
+      <Header title={data.title} image={data.image} />
 
       <Body ref={body}>
         {chat.map((item) => (
-          <MessageItem key={item.author} data={item} user={user} />
+          <MessageItem key={uuid()} data={item} user={user} />
         ))}
       </Body>
 
@@ -143,6 +141,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ user }: ChatWindowProps) => {
         setMessage={setMessage}
         handleOpenEmoji={handleOpenEmoji}
         handleCloseEmoji={handleCloseEmoji}
+        onKeyUp={handleInputKeyUp}
       />
     </Container>
   );

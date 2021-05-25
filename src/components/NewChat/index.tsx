@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdArrowBack } from 'react-icons/md';
+
+import api from 'api';
 import Avatar from 'ui/Avatar';
 
 import {
@@ -12,30 +14,49 @@ import {
   Name,
 } from './styles';
 
-// type Chat = {
-//   id: number;
-// };
+type Chat = {
+  chatId: string | undefined;
+};
 
-// type User = {
-//   id: number;
-// };
+type User = {
+  id: string;
+  name: string;
+  avatar: string;
+};
 
 type NewChatProps = {
   show: boolean;
-  // chatList: Chat[];
-  // user: User;
+  chatList: Chat[];
+  user: User;
   setShow: (show: boolean) => void;
 };
 
-const NewChat: React.FC<NewChatProps> = ({ show, setShow }: NewChatProps) => {
-  const [list] = useState([
-    { id: 123, avatar: 'images/avatar.jpg', name: 'Silvano Marques' },
-    { id: 1234, avatar: 'images/avatar.jpg', name: 'Silvano Marques' },
-    { id: 1235, avatar: 'images/avatar.jpg', name: 'Silvano Marques' },
-  ]);
+const NewChat: React.FC<NewChatProps> = ({
+  show,
+  user,
+  chatList,
+  setShow,
+}: NewChatProps) => {
+  const [list, setList] = useState<User[]>([]);
+
+  useEffect(() => {
+    const getList = async (): Promise<void> => {
+      if (user.id) {
+        const results = await api.getContactList(user.id);
+        setList(results);
+      }
+    };
+
+    getList();
+  }, [user, chatList]);
 
   const handleHiddenNewChat = (): void => {
     setShow(false);
+  };
+
+  const addNewChat = (otherUser: User) => async (): Promise<void> => {
+    await api.addNewChat(user, otherUser);
+    handleHiddenNewChat();
   };
 
   return (
@@ -49,7 +70,7 @@ const NewChat: React.FC<NewChatProps> = ({ show, setShow }: NewChatProps) => {
 
       <List>
         {list.map((item) => (
-          <Item key={item.id}>
+          <Item key={item.id} onClick={addNewChat(item)}>
             <Avatar height={40} width={40} src={item.avatar} />
             <Name>{item.name}</Name>
           </Item>
