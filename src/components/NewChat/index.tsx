@@ -16,6 +16,7 @@ import {
 
 type Chat = {
   chatId: string | undefined;
+  with: string | undefined;
 };
 
 type User = {
@@ -42,7 +43,10 @@ const NewChat: React.FC<NewChatProps> = ({
   useEffect(() => {
     const getList = async (): Promise<void> => {
       if (user.id) {
-        const results = await api.getContactList(user.id);
+        const results = (await api.getContactList(user.id)).filter(
+          (u) => !chatList.some((chat) => chat.with === u.id)
+        );
+
         setList(results);
       }
     };

@@ -39,6 +39,7 @@ type Chat = {
   chatId: string | undefined;
   title: string | undefined;
   image: string | undefined;
+  with: string | undefined;
   lastMessage: string | undefined;
   lastMessageDate: Timestamp;
 };
@@ -51,6 +52,7 @@ const App: React.FC = () => {
     title: undefined,
     image: undefined,
     lastMessage: undefined,
+    with: undefined,
     lastMessageDate: { seconds: 0 },
   });
 

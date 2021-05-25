@@ -1,9 +1,10 @@
 import React from 'react';
 import firebase from 'firebase/app';
+import { FcGoogle } from 'react-icons/fc';
 
 import api from 'api';
 
-import { Container } from './styles';
+import { Container, GlobalStyle, GoogleButton } from './styles';
 
 type LoginProps = {
   onReceive: (user: firebase.User | null) => Promise<void>;
@@ -21,11 +22,15 @@ const Login: React.FC<LoginProps> = ({ onReceive }: LoginProps) => {
   };
 
   return (
-    <Container>
-      <button type="button" onClick={handleGoogleLogin}>
-        Logar pelo Google
-      </button>
-    </Container>
+    <>
+      <GlobalStyle />
+      <Container>
+        <GoogleButton type="button" onClick={handleGoogleLogin}>
+          <FcGoogle />
+          Logar pelo Google
+        </GoogleButton>
+      </Container>
+    </>
   );
 };
 

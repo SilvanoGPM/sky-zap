@@ -8,9 +8,10 @@ type FooterComponentProps = {
   emojiOpen: boolean;
   message: string;
   setMessage: (message: string) => void;
+  onKeyUp: (event: KeyboardEvent) => void;
   handleOpenEmoji: () => void;
   handleCloseEmoji: () => void;
-  onKeyUp: (event: KeyboardEvent) => void;
+  handleSendClick: () => void;
 };
 
 const FooterComponent: React.FC<FooterComponentProps> = ({
@@ -20,15 +21,11 @@ const FooterComponent: React.FC<FooterComponentProps> = ({
   setMessage,
   handleOpenEmoji,
   handleCloseEmoji,
+  handleSendClick,
   onKeyUp,
 }: FooterComponentProps) => {
   const handleMessageChange = (event: FormEvent<HTMLInputElement>): void => {
     setMessage(event.currentTarget.value);
-  };
-
-  // eslint-disable-next-line
-  const handleSendClick = () => {
-
   };
 
   return (

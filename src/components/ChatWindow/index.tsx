@@ -141,6 +141,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         setMessage={setMessage}
         handleOpenEmoji={handleOpenEmoji}
         handleCloseEmoji={handleCloseEmoji}
+        handleSendClick={handleSendClick}
         onKeyUp={handleInputKeyUp}
       />
     </Container>

@@ -30,7 +30,7 @@ export default {
   },
 
   async addUser({ id, name, avatar }: User): Promise<void> {
-    db.collection(USERS).doc(id).set({ name, avatar });
+    db.collection(USERS).doc(id).set({ name, avatar }, { merge: true });
   },
 
   async getContactList(id: string): Promise<User[]> {
@@ -88,7 +88,6 @@ export default {
       .onSnapshot((doc) => {
         if (doc.exists) {
           const data = doc.data();
-
           if (data?.chats) {
             const chats = [...data.chats];
 

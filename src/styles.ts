@@ -9,6 +9,7 @@ export const Container = styled.div`
 export const Sidebar = styled.div`
   width: 35%;
   max-width: 415px;
+  min-width: 300px;
 
   display: flex;
   flex-direction: column;
